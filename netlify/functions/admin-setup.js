@@ -1,4 +1,4 @@
-const { quinielaStore, getTeams, computeSummary, STATUS_OPTIONS, ENTRY_FEE } = require("./lib");
+const { quinielaStore, getTeams } = require("./lib");
 
 const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD || "AZTECA2026";
 
@@ -18,11 +18,19 @@ exports.handler = async (event) => {
 
   const store = quinielaStore();
   const teams = await getTeams(store);
-  const summary = computeSummary(teams);
+  const namesById = {};
+  (data.names || []).forEach(n => { namesById[n.id] = n.name; });
+
+  const updated = teams.map(t => ({
+    ...t,
+    name: namesById[t.id] !== undefined && namesById[t.id].trim() ? namesById[t.id].trim() : t.name
+  }));
+
+  await store.setJSON("teams", updated);
 
   return {
     statusCode: 200,
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ teams, summary, statusOptions: STATUS_OPTIONS, entryFee: ENTRY_FEE })
+    body: JSON.stringify({ ok: true, teams: updated })
   };
 };

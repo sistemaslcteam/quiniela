@@ -1,5 +1,13 @@
 const { getStore } = require("@netlify/blobs");
 
+function quinielaStore() {
+  return getStore({
+    name: "quiniela",
+    siteID: process.env.BLOBS_SITE_ID,
+    token: process.env.BLOBS_TOKEN
+  });
+}
+
 function slug(name) {
   return name.trim().toLowerCase()
     .replace(/[áàä]/g, "a").replace(/[éèë]/g, "e").replace(/[íìï]/g, "i")
@@ -24,7 +32,7 @@ exports.handler = async (event) => {
   if (!data.goleador) return { statusCode: 400, body: JSON.stringify({ error: "Falta el goleador" }) };
 
   const id = slug(name);
-  const store = getStore("quiniela");
+  const store = quinielaStore();
 
   const ticket = {
     name,

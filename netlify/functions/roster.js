@@ -1,5 +1,13 @@
 const { getStore } = require("@netlify/blobs");
 
+function quinielaStore() {
+  return getStore({
+    name: "quiniela",
+    siteID: process.env.BLOBS_SITE_ID,
+    token: process.env.BLOBS_TOKEN
+  });
+}
+
 function slug(name) {
   return name.trim().toLowerCase()
     .replace(/[áàä]/g, "a").replace(/[éèë]/g, "e").replace(/[íìï]/g, "i")
@@ -8,7 +16,7 @@ function slug(name) {
 }
 
 exports.handler = async (event) => {
-  const store = getStore("quiniela");
+  const store = quinielaStore();
   const params = event.queryStringParameters || {};
 
   if (params.name) {

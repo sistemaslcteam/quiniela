@@ -2,6 +2,14 @@ const { getStore } = require("@netlify/blobs");
 
 const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD || "AZTECA2026";
 
+function quinielaStore() {
+  return getStore({
+    name: "quiniela",
+    siteID: process.env.BLOBS_SITE_ID,
+    token: process.env.BLOBS_TOKEN
+  });
+}
+
 exports.handler = async (event) => {
   if (event.httpMethod !== "POST") {
     return { statusCode: 405, body: "Method not allowed" };
@@ -17,7 +25,7 @@ exports.handler = async (event) => {
     return { statusCode: 401, body: JSON.stringify({ error: "Clave incorrecta" }) };
   }
 
-  const store = getStore("quiniela");
+  const store = quinielaStore();
   const results = {
     rounds: data.rounds || [],
     fase: data.fase || "",

@@ -48,14 +48,35 @@
   .tablewrap{ max-height:340px; overflow-y:auto; }
   footer{ text-align:center; margin-top:22px; font-family:'Space Mono',monospace; font-size:10.5px; color:rgba(246,243,234,0.3); }
   footer a{ color:var(--gold); text-decoration:none; }
+  .flag-strip{ height:6px; display:flex; }
+  .flag-strip span{ flex:1; }
+  .flag-strip .g{ background:#0B6623; }
+  .flag-strip .w{ background:#F6F3EA; }
+  .flag-strip .r{ background:#C8102E; }
+  .head-row{ display:flex; align-items:flex-start; justify-content:space-between; gap:14px; }
+  .ball{ flex-shrink:0; width:52px; height:52px; margin-top:2px; }
+  .ball-spin{ animation: spin 9s linear infinite; transform-origin:50% 50%; }
+  @keyframes spin{ from{ transform:rotate(0deg);} to{ transform:rotate(360deg);} }
 </style>
 </head>
 <body>
 <div class="wrap">
+  <div class="flag-strip"><span class="g"></span><span class="w"></span><span class="r"></span></div>
 
   <div class="ticket-head">
-    <p class="eyebrow">Mundial 2026 · Sorteo de equipos</p>
-    <h1>Quiniela del Tri</h1>
+    <div class="head-row">
+      <div>
+        <p class="eyebrow">🇲🇽 Mundial 2026 · Sorteo de equipos</p>
+        <h1>Quiniela del Tri</h1>
+      </div>
+      <svg class="ball ball-spin" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="50" cy="50" r="46" fill="#F6F3EA" stroke="#1A1A1A" stroke-width="2"/>
+        <polygon points="50,28 62,37 57,52 43,52 38,37" fill="#163B2C" stroke="#1A1A1A" stroke-width="1.5"/>
+        <path d="M50,28 L50,8 M62,37 L80,28 M57,52 L70,68 M43,52 L30,68 M38,37 L20,28" stroke="#1A1A1A" stroke-width="1.5" fill="none"/>
+        <path d="M8,50 a42,42 0 0 1 14,-32" stroke="#1A1A1A" stroke-width="1.2" fill="none" opacity="0.4"/>
+        <path d="M92,50 a42,42 0 0 1 -14,32" stroke="#1A1A1A" stroke-width="1.2" fill="none" opacity="0.4"/>
+      </svg>
+    </div>
     <p class="sub">Compra tu(s) equipo(s) por $100 cada uno. El sorteo te asigna equipos al azar entre los que sigan disponibles. Si tu equipo avanza de ronda, se invierten otros $100 para seguir — así hasta la final. Premios para 1°, 2° y 3er lugar según el resultado real del Mundial.</p>
     <div class="stub-row">
       <span class="pill" id="potPill">bote: cargando…</span>

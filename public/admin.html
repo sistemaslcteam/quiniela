@@ -105,10 +105,14 @@
         <div style="display:flex; gap:8px;">
           <button class="secondary" id="refreshBtn">Actualizar</button>
           <button id="saveNamesBtn">Guardar nombres</button>
+          <button id="saveOwnersBtn">Guardar dueños</button>
           <button id="saveStatusBtn">Guardar rondas</button>
         </div>
       </div>
       <p class="status" id="saveStatus"></p>
+      <p style="font-family:'Space Mono',monospace; font-size:11px; color:rgba(246,243,234,0.45); margin:0 0 12px;">
+        Para quitarle el equipo a alguien, borra el nombre de la celda "Dueño" y déjala vacía — el equipo regresa al pool disponible para sortearse de nuevo. También puedes escribir o corregir un nombre directamente.
+      </p>
       <div class="tablewrap">
         <table>
           <thead><tr><th>#</th><th>Equipo</th><th>Dueño</th><th>Ronda / estatus</th></tr></thead>
@@ -175,7 +179,7 @@ function populate(data){
     tr.innerHTML = `
       <td>${t.id}</td>
       <td><input type="text" data-id="${t.id}" class="name-input" value="${t.name}"></td>
-      <td class="owner-cell ${t.owner ? '' : 'empty'}">${t.owner || 'disponible'}</td>
+      <td><input type="text" data-id="${t.id}" class="owner-input" placeholder="disponible" value="${t.owner || ''}"></td>
       <td><select data-id="${t.id}" class="status-select">${optionsHtml}</select></td>
     `;
     tbody.appendChild(tr);
@@ -216,6 +220,28 @@ document.getElementById('saveNamesBtn').addEventListener('click', async () => {
     statusEl.className = 'status ok';
     const fresh = await fetchAdminData(PASSWORD);
     if(!fresh.error) populate(fresh);
+  }catch(e){
+    statusEl.textContent = 'No se pudo guardar: ' + e.message;
+    statusEl.className = 'status err';
+  }
+});
+
+document.getElementById('saveOwnersBtn').addEventListener('click', async () => {
+  const inputs = document.querySelectorAll('.owner-input');
+  const updates = Array.from(inputs).map(i => ({ id: parseInt(i.dataset.id,10), owner: i.value }));
+  const statusEl = document.getElementById('saveStatus');
+  statusEl.textContent = 'Guardando dueños…';
+  statusEl.className = 'status';
+  try{
+    const res = await fetch('/api/admin-assign', {
+      method:'POST', headers:{'Content-Type':'application/json'},
+      body: JSON.stringify({ password: PASSWORD, updates })
+    });
+    const data = await res.json();
+    if(!res.ok) throw new Error(data.error || 'Error');
+    statusEl.textContent = 'Dueños actualizados.';
+    statusEl.className = 'status ok';
+    populate({ teams: data.teams, summary: data.summary });
   }catch(e){
     statusEl.textContent = 'No se pudo guardar: ' + e.message;
     statusEl.className = 'status err';

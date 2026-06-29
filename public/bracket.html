@@ -87,14 +87,14 @@ const ROUND_LEVELS = {
 
 function wins(team){ return team ? (ROUND_LEVELS[team.status] ?? 0) : -1; }
 
-function representative(group){
+function representative(group, requiredWins){
   let best = null, bestWins = -1, tie = false;
   group.filter(Boolean).forEach(t => {
     const w = wins(t);
     if (w > bestWins){ bestWins = w; best = t; tie = false; }
-    else if (w === bestWins && w > 0){ tie = true; }
+    else if (w === bestWins && w >= 0){ tie = true; }
   });
-  if (bestWins <= 0 || tie) return null;
+  if (bestWins < requiredWins || tie) return null;
   return best;
 }
 
@@ -133,21 +133,21 @@ async function load(){
 function renderBracket(teams){
   const r32Pairs = [];
   for(let i=0;i<teams.length;i+=2) r32Pairs.push([teams[i], teams[i+1]]);
-  const r32Winners = r32Pairs.map(representative);
+  const r32Winners = r32Pairs.map(p => representative(p, 1));
 
   const r16Groups = [];
   for(let i=0;i<r32Pairs.length;i+=2) r16Groups.push([...r32Pairs[i], ...r32Pairs[i+1]]);
-  const r16Winners = r16Groups.map(representative);
+  const r16Winners = r16Groups.map(g => representative(g, 2));
 
   const qfGroups = [];
   for(let i=0;i<r16Groups.length;i+=2) qfGroups.push([...r16Groups[i], ...r16Groups[i+1]]);
-  const qfWinners = qfGroups.map(representative);
+  const qfWinners = qfGroups.map(g => representative(g, 3));
 
   const L = { r32: r32Pairs.slice(0,8), r32W: r32Winners.slice(0,8), r16W: r16Winners.slice(0,4), qfW: qfWinners.slice(0,2) };
   const R = { r32: r32Pairs.slice(8,16), r32W: r32Winners.slice(8,16), r16W: r16Winners.slice(4,8), qfW: qfWinners.slice(2,4) };
 
-  const sfLeft = representative(L.qfW);
-  const sfRight = representative(R.qfW);
+  const sfLeft = representative(L.qfW, 4);
+  const sfRight = representative(R.qfW, 4);
 
   const campeon = teams.find(t => t.status === 'Campeón');
   const tercero = teams.find(t => t.status === '3er lugar');

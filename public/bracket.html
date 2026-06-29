@@ -7,36 +7,41 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Space+Mono:wght@400;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
-  :root{ --pitch:#163B2C; --pitch-deep:#0E2A20; --chalk:#F6F3EA; --gold:#C9962E; --rojo:#B5342A; --line: rgba(246,243,234,0.18); }
+  :root{ --pitch:#163B2C; --pitch-deep:#0E2A20; --chalk:#F6F3EA; --gold:#C9962E; --rojo:#B5342A; --line: rgba(246,243,234,0.18); --verdeok:#3FB65F; }
   *{box-sizing:border-box;}
   body{ margin:0; font-family:'Inter',sans-serif; background:var(--pitch-deep); color:var(--chalk); min-height:100vh; padding:28px 14px 60px; }
-  .flag-strip{ height:6px; display:flex; max-width:1400px; margin:0 auto 18px; }
+  .flag-strip{ height:6px; display:flex; max-width:1500px; margin:0 auto 18px; }
   .flag-strip span{ flex:1; }
   .flag-strip .g{ background:#0B6623; } .flag-strip .w{ background:#F6F3EA; } .flag-strip .r{ background:#C8102E; }
-  .top{ max-width:1400px; margin:0 auto 22px; display:flex; justify-content:space-between; align-items:flex-end; flex-wrap:wrap; gap:10px; }
+  .top{ max-width:1500px; margin:0 auto 22px; display:flex; justify-content:space-between; align-items:flex-end; flex-wrap:wrap; gap:10px; }
   .eyebrow{ font-family:'Space Mono',monospace; font-size:11px; letter-spacing:0.16em; text-transform:uppercase; color:var(--gold); margin:0 0 6px; }
   h1{ font-family:'Oswald',sans-serif; font-weight:700; font-size:26px; text-transform:uppercase; margin:0; }
   a.back{ font-family:'Space Mono',monospace; font-size:11.5px; color:var(--gold); text-decoration:none; }
-  .scrollarea{ max-width:1400px; margin:0 auto; overflow-x:auto; padding-bottom:10px; }
-  .bracket{ display:flex; gap:26px; min-width:1180px; align-items:center; }
-  .col{ display:flex; flex-direction:column; justify-content:center; gap:14px; flex:1; min-width:150px; }
-  .col-title{ font-family:'Space Mono',monospace; font-size:10px; letter-spacing:0.1em; text-transform:uppercase; color:rgba(246,243,234,0.5); text-align:center; margin-bottom:2px; }
-  .match{ background:var(--pitch); border:1px solid var(--line); border-radius:8px; padding:8px 10px; font-size:12px; }
-  .slot{ display:flex; justify-content:space-between; align-items:center; padding:4px 2px; border-radius:4px; }
-  .slot.win{ color:var(--gold); font-weight:700; }
-  .slot.lose{ color:rgba(246,243,234,0.35); text-decoration:line-through; }
+  .scrollarea{ max-width:1500px; margin:0 auto; overflow-x:auto; padding-bottom:10px; }
+  .bracket{ display:flex; gap:18px; min-width:1500px; align-items:stretch; }
+  .col{ display:flex; flex-direction:column; justify-content:space-around; gap:10px; flex:1; min-width:140px; }
+  .col-title{ font-family:'Space Mono',monospace; font-size:10.5px; letter-spacing:0.08em; text-transform:uppercase; color:var(--gold); text-align:center; margin-bottom:6px; font-weight:700; }
+  .match{ background:var(--pitch); border:1px solid var(--line); border-radius:8px; padding:7px 9px; font-size:12px; }
+  .slot{ display:flex; justify-content:space-between; align-items:center; padding:3px 2px; border-radius:4px; gap:6px; }
+  .slot.win{ color:var(--chalk); font-weight:700; }
+  .slot.lose{ color:rgba(246,243,234,0.32); text-decoration:line-through; }
   .slot.tbd{ color:rgba(246,243,234,0.3); font-style:italic; }
-  .slot .nm{ font-family:'Oswald',sans-serif; font-size:12.5px; }
-  .slot .ow{ font-family:'Space Mono',monospace; font-size:9px; color:rgba(246,243,234,0.45); margin-top:1px; }
-  .vline{ border-top:1px dashed var(--line); margin:4px 0; }
-  .final-col{ align-items:center; }
-  .champion-box{ background:linear-gradient(135deg, rgba(201,150,46,0.22), rgba(201,150,46,0.05)); border:1px solid var(--gold); border-radius:10px; padding:16px; text-align:center; min-width:170px; }
-  .champion-box .crown{ font-size:26px; }
-  .champion-box .nm{ font-family:'Oswald',sans-serif; font-size:17px; color:var(--gold); margin:4px 0 2px; }
-  .champion-box .ow{ font-family:'Space Mono',monospace; font-size:10.5px; color:rgba(246,243,234,0.6); }
-  .third-box{ margin-top:14px; background:rgba(246,243,234,0.05); border:1px solid var(--line); border-radius:8px; padding:10px; text-align:center; min-width:170px; }
-  .third-box .lab{ font-family:'Space Mono',monospace; font-size:9.5px; text-transform:uppercase; color:rgba(246,243,234,0.45); }
-  .third-box .nm{ font-family:'Oswald',sans-serif; font-size:13px; color:var(--chalk); margin-top:3px; }
+  .slot .nm{ font-family:'Oswald',sans-serif; font-size:12px; }
+  .slot .ow{ font-family:'Space Mono',monospace; font-size:8.5px; color:rgba(246,243,234,0.45); margin-top:1px; }
+  .check{ color:var(--verdeok); font-weight:900; font-size:13px; flex-shrink:0; }
+  .vline{ border-top:1px dashed var(--line); margin:3px 0; }
+  .center-col{ align-items:center; justify-content:center; gap:14px; min-width:170px; }
+  .final-box{ background:var(--gold); border-radius:8px; padding:10px 12px; width:100%; text-align:left; }
+  .final-box .ttl{ font-family:'Oswald',sans-serif; font-weight:700; font-size:12px; color:var(--pitch-deep); text-transform:uppercase; margin-bottom:6px; }
+  .final-box .slot{ background:rgba(14,42,32,0.12); margin-bottom:3px; border-radius:5px; padding:5px 8px; }
+  .final-box .slot .nm{ color:var(--pitch-deep); }
+  .final-box .slot.lose{ color:rgba(14,42,32,0.4); }
+  .third-box{ background:var(--rojo); border-radius:8px; padding:10px 12px; width:100%; text-align:left; }
+  .third-box .ttl{ font-family:'Oswald',sans-serif; font-weight:700; font-size:12px; color:var(--chalk); text-transform:uppercase; margin-bottom:6px; }
+  .third-box .slot{ background:rgba(0,0,0,0.15); margin-bottom:3px; border-radius:5px; padding:5px 8px; }
+  .third-box .slot .nm{ color:var(--chalk); }
+  .champion-mini{ background:linear-gradient(135deg, rgba(201,150,46,0.25), rgba(201,150,46,0.06)); border:1px solid var(--gold); border-radius:8px; padding:10px 12px; text-align:center; width:100%; }
+  .champion-mini .nm{ font-family:'Oswald',sans-serif; font-size:13px; color:var(--gold); }
   footer{ text-align:center; margin-top:30px; font-family:'Space Mono',monospace; font-size:10.5px; color:rgba(246,243,234,0.3); }
   footer a{ color:var(--gold); text-decoration:none; }
   .pot-pill{ font-family:'Space Mono',monospace; font-size:11px; background:rgba(201,150,46,0.16); color:var(--gold); padding:4px 10px; border-radius:20px; }
@@ -80,16 +85,11 @@ const ROUND_LEVELS = {
   "3er lugar": 4
 };
 
-function wins(team){
-  return ROUND_LEVELS[team.status] ?? 0;
-}
+function wins(team){ return team ? (ROUND_LEVELS[team.status] ?? 0) : -1; }
 
-// representante de un subgrupo de equipos: el que tenga más "wins"; null si hay empate (nadie destacado aún)
 function representative(group){
-  let best = null;
-  let bestWins = -1;
-  let tie = false;
-  group.forEach(t => {
+  let best = null, bestWins = -1, tie = false;
+  group.filter(Boolean).forEach(t => {
     const w = wins(t);
     if (w > bestWins){ bestWins = w; best = t; tie = false; }
     else if (w === bestWins && w > 0){ tie = true; }
@@ -98,13 +98,25 @@ function representative(group){
   return best;
 }
 
-function renderSlot(team, isWinnerSlot, levelNeeded){
+function slotHtml(team, levelNeeded){
   if(!team){
     return `<div class="slot tbd"><span class="nm">por definir</span></div>`;
   }
   const w = wins(team);
-  const cls = w >= levelNeeded ? 'win' : (team.status.startsWith('Eliminado') || team.status==='4to lugar' || team.status==='Subcampeón' ? 'lose' : '');
-  return `<div class="slot ${cls}"><div><div class="nm">${team.name}</div>${team.owner ? `<div class="ow">${team.owner}</div>` : ''}</div></div>`;
+  const isLoser = team.status && (team.status.startsWith('Eliminado') || team.status === '4to lugar' || team.status === 'Subcampeón');
+  const isWinner = w >= levelNeeded && !isLoser;
+  const cls = isLoser ? 'lose' : (isWinner ? 'win' : '');
+  const ownerHtml = team.owner ? `<div class="ow">${team.owner}</div>` : '';
+  const check = isWinner ? `<span class="check">✓</span>` : '';
+  return `<div class="slot ${cls}"><div><div class="nm">${team.name}</div>${ownerHtml}</div>${check}</div>`;
+}
+
+function matchBox(a, b, levelNeeded){
+  return `<div class="match">${slotHtml(a, levelNeeded)}<div class="vline"></div>${slotHtml(b, levelNeeded)}</div>`;
+}
+
+function col(title, innerHtml, extraClass){
+  return `<div class="col ${extraClass||''}"><div class="col-title">${title}</div>${innerHtml}</div>`;
 }
 
 async function load(){
@@ -112,89 +124,73 @@ async function load(){
     const res = await fetch('/api/teams');
     const data = await res.json();
     document.getElementById('potPill').textContent = `bote: $${data.summary.pot.toLocaleString('es-MX')}`;
-    renderBracket(data.teams, data.summary);
+    renderBracket(data.teams);
   }catch(e){
     document.getElementById('bracketWrap').innerHTML = '<p style="color:#E2918A;">No se pudo cargar el cuadro.</p>';
   }
 }
 
-function renderBracket(teams, summary){
-  // dieciseisavos: pares consecutivos (1,2)(3,4)...
+function renderBracket(teams){
   const r32Pairs = [];
-  for(let i=0;i<teams.length;i+=2){
-    r32Pairs.push([teams[i], teams[i+1]]);
-  }
-  // representante de cada par tras dieciseisavos
-  const r32Winners = r32Pairs.map(pair => representative(pair));
+  for(let i=0;i<teams.length;i+=2) r32Pairs.push([teams[i], teams[i+1]]);
+  const r32Winners = r32Pairs.map(representative);
 
-  // octavos: agrupar pares de "pares" (grupos de 4 equipos originales)
-  function nextRoundWinners(prevGroups){
-    const winners = [];
-    for(let i=0;i<prevGroups.length;i+=2){
-      const groupTeams = [...prevGroups[i], ...prevGroups[i+1]].filter(Boolean);
-      winners.push(representative(groupTeams));
-    }
-    return winners;
-  }
+  const r16Groups = [];
+  for(let i=0;i<r32Pairs.length;i+=2) r16Groups.push([...r32Pairs[i], ...r32Pairs[i+1]]);
+  const r16Winners = r16Groups.map(representative);
 
-  // grupos originales de equipos por ronda (para representative recursivo necesitamos los equipos reales, no solo ganadores parciales)
-  const groupsR32 = r32Pairs; // grupos de 2
-  const groupsR16 = [];
-  for(let i=0;i<groupsR32.length;i+=2){ groupsR16.push([...groupsR32[i], ...groupsR32[i+1]]); }
-  const groupsQF = [];
-  for(let i=0;i<groupsR16.length;i+=2){ groupsQF.push([...groupsR16[i], ...groupsR16[i+1]]); }
-  const groupsSF = [];
-  for(let i=0;i<groupsQF.length;i+=2){ groupsSF.push([...groupsQF[i], ...groupsQF[i+1]]); }
+  const qfGroups = [];
+  for(let i=0;i<r16Groups.length;i+=2) qfGroups.push([...r16Groups[i], ...r16Groups[i+1]]);
+  const qfWinners = qfGroups.map(representative);
 
-  const r16Winners = groupsR16.map(representative);
-  const qfWinners = groupsQF.map(representative);
-  const sfWinners = groupsSF.map(representative);
+  const L = { r32: r32Pairs.slice(0,8), r32W: r32Winners.slice(0,8), r16W: r16Winners.slice(0,4), qfW: qfWinners.slice(0,2) };
+  const R = { r32: r32Pairs.slice(8,16), r32W: r32Winners.slice(8,16), r16W: r16Winners.slice(4,8), qfW: qfWinners.slice(2,4) };
+
+  const sfLeft = representative(L.qfW);
+  const sfRight = representative(R.qfW);
 
   const campeon = teams.find(t => t.status === 'Campeón');
-  const subcampeon = teams.find(t => t.status === 'Subcampeón');
   const tercero = teams.find(t => t.status === '3er lugar');
   const cuarto = teams.find(t => t.status === '4to lugar');
 
-  function col(title, matches){
-    return `<div class="col"><div class="col-title">${title}</div>${matches}</div>`;
+  function buildSide(side, lvl1, lvl2, lvl3){
+    const c16 = side.r32.map(p => matchBox(p[0], p[1], lvl1)).join('');
+    const c8arr = [];
+    for(let i=0;i<side.r32W.length;i+=2) c8arr.push(matchBox(side.r32W[i], side.r32W[i+1], lvl2));
+    const c4 = matchBox(side.r16W[0], side.r16W[1], lvl3);
+    return { c16, c8: c8arr.join(''), c4 };
   }
 
-  function matchBox(a, b, levelNeeded){
-    return `<div class="match">${renderSlot(a, true, levelNeeded)}<div class="vline"></div>${renderSlot(b, true, levelNeeded)}</div>`;
-  }
+  const left = buildSide(L, 1, 2, 3);
+  const right = buildSide(R, 1, 2, 3);
 
   let html = '';
-  html += col('Dieciseisavos', r32Pairs.map(p => matchBox(p[0], p[1], 1)).join(''));
-  html += col('Octavos', groupsR16.map((_,i)=>{
-      const left = r32Winners[i*2], right = r32Winners[i*2+1];
-      return matchBox(left, right, 2);
-    }).join(''));
-  html += col('Cuartos', groupsQF.map((_,i)=>{
-      const left = r16Winners[i*2], right = r16Winners[i*2+1];
-      return matchBox(left, right, 3);
-    }).join(''));
-  html += col('Semifinal', groupsSF.map((_,i)=>{
-      const left = qfWinners[i*2], right = qfWinners[i*2+1];
-      return matchBox(left, right, 4);
-    }).join(''));
+  html += col('16avos', left.c16);
+  html += col('8avos', left.c8);
+  html += col('4tos', left.c4);
+  html += col('Semis', matchBox(L.qfW[0], L.qfW[1], 4));
 
-  const finalLeft = sfWinners[0], finalRight = sfWinners[1];
-  html += `<div class="col final-col">
+  html += `<div class="col center-col">
       <div class="col-title">Final</div>
-      ${matchBox(finalLeft, finalRight, 5)}
+      <div class="final-box">
+        <div class="ttl">🏆 Final</div>
+        ${slotHtml(sfLeft, 5)}
+        ${slotHtml(sfRight, 5)}
+      </div>
       <div class="third-box">
-        <div class="lab">3er lugar</div>
-        ${renderSlot(tercero, true, 5)}
-        ${renderSlot(cuarto, true, 5)}
+        <div class="ttl">3er puesto</div>
+        ${slotHtml(tercero, 5)}
+        ${slotHtml(cuarto, 5)}
+      </div>
+      <div class="champion-mini">
+        <div class="nm">${campeon ? '🏆 ' + campeon.name + (campeon.owner ? ' · ' + campeon.owner : '') : 'Campeón: por definir'}</div>
       </div>
     </div>`;
 
-  html += `<div class="col">
-      <div class="champion-box">
-        <div class="crown">🏆</div>
-        ${campeon ? `<div class="nm">${campeon.name}</div><div class="ow">${campeon.owner || ''}</div>` : '<div class="nm" style="opacity:0.4; font-style:italic;">por definir</div>'}
-      </div>
-    </div>`;
+  html += col('Semis', matchBox(R.qfW[0], R.qfW[1], 4));
+  html += col('4tos', right.c4);
+  html += col('8avos', right.c8);
+  html += col('16avos', right.c16);
 
   document.getElementById('bracketWrap').innerHTML = html;
 }

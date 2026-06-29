@@ -111,11 +111,12 @@
       </div>
       <p class="status" id="saveStatus"></p>
       <p style="font-family:'Space Mono',monospace; font-size:11px; color:rgba(246,243,234,0.45); margin:0 0 12px;">
+        "Pos. real cuadro" es la posición de ese equipo en las llaves reales del Mundial (1 al 32) — esto define los cruces que se ven en /bracket.html, y es independiente del número de fila (#) con el que se vende cada entrada. Así México puede seguir siendo el equipo #1 a la venta, pero aparecer en su lugar correcto (por ejemplo, posición 21) en el cuadro.<br>
         Para quitarle el equipo a alguien, borra el nombre de la celda "Dueño" y déjala vacía — el equipo regresa al pool disponible para sortearse de nuevo. También puedes escribir o corregir un nombre directamente.
       </p>
       <div class="tablewrap">
         <table>
-          <thead><tr><th>#</th><th>Equipo</th><th>Dueño</th><th>Ronda / estatus</th></tr></thead>
+          <thead><tr><th>#</th><th>Equipo</th><th>Pos. real cuadro</th><th>Dueño</th><th>Ronda / estatus</th></tr></thead>
           <tbody id="teamsBody"></tbody>
         </table>
       </div>
@@ -179,6 +180,7 @@ function populate(data){
     tr.innerHTML = `
       <td>${t.id}</td>
       <td><input type="text" data-id="${t.id}" class="name-input" value="${t.name}"></td>
+      <td><input type="text" data-id="${t.id}" class="pos-input" style="width:60px;" value="${t.bracketPos ?? t.id}"></td>
       <td><input type="text" data-id="${t.id}" class="owner-input" placeholder="disponible" value="${t.owner || ''}"></td>
       <td><select data-id="${t.id}" class="status-select">${optionsHtml}</select></td>
     `;
@@ -205,7 +207,10 @@ document.getElementById('refreshBtn').addEventListener('click', async () => {
 
 document.getElementById('saveNamesBtn').addEventListener('click', async () => {
   const inputs = document.querySelectorAll('.name-input');
-  const names = Array.from(inputs).map(i => ({ id: parseInt(i.dataset.id,10), name: i.value }));
+  const posInputs = document.querySelectorAll('.pos-input');
+  const posById = {};
+  posInputs.forEach(p => { posById[p.dataset.id] = p.value; });
+  const names = Array.from(inputs).map(i => ({ id: parseInt(i.dataset.id,10), name: i.value, bracketPos: posById[i.dataset.id] }));
   const statusEl = document.getElementById('saveStatus');
   statusEl.textContent = 'Guardando nombres…';
   statusEl.className = 'status';

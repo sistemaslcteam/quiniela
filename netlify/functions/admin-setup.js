@@ -19,12 +19,16 @@ exports.handler = async (event) => {
   const store = quinielaStore();
   const teams = await getTeams(store);
   const namesById = {};
+  const posById = {};
   (data.names || []).forEach(n => { namesById[n.id] = n.name; });
+  (data.names || []).forEach(n => { if (n.bracketPos !== undefined) posById[n.id] = n.bracketPos; });
 
-  const updated = teams.map(t => ({
-    ...t,
-    name: namesById[t.id] !== undefined && namesById[t.id].trim() ? namesById[t.id].trim() : t.name
-  }));
+  const updated = teams.map(t => {
+    const newName = namesById[t.id] !== undefined && namesById[t.id].trim() ? namesById[t.id].trim() : t.name;
+    const rawPos = posById[t.id];
+    const newPos = rawPos !== undefined && rawPos !== "" && !isNaN(parseInt(rawPos,10)) ? parseInt(rawPos,10) : t.bracketPos;
+    return { ...t, name: newName, bracketPos: newPos };
+  });
 
   await store.setJSON("teams", updated);
 

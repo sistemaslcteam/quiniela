@@ -49,7 +49,8 @@ function defaultTeams() {
       id: i,
       name: `Equipo ${i}`,
       owner: null,
-      status: "Dieciseisavos"
+      status: "Dieciseisavos",
+      bracketPos: i
     });
   }
   return teams;
@@ -61,6 +62,15 @@ async function getTeams(store) {
     teams = defaultTeams();
     await store.setJSON("teams", teams);
   }
+  let migrated = false;
+  teams = teams.map(t => {
+    if (t.bracketPos === undefined || t.bracketPos === null) {
+      migrated = true;
+      return { ...t, bracketPos: t.id };
+    }
+    return t;
+  });
+  if (migrated) await store.setJSON("teams", teams);
   return teams;
 }
 

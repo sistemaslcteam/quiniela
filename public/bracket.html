@@ -130,7 +130,8 @@ async function load(){
   }
 }
 
-function renderBracket(teams){
+function renderBracket(teamsRaw){
+  const teams = teamsRaw.slice().sort((a,b) => (a.bracketPos ?? a.id) - (b.bracketPos ?? b.id));
   const r32Pairs = [];
   for(let i=0;i<teams.length;i+=2) r32Pairs.push([teams[i], teams[i+1]]);
   const r32Winners = r32Pairs.map(p => representative(p, 1));
